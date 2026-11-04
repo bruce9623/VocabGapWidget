@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_vertical"
+    android:padding="12dp"
+    android:background="@drawable/widget_bg">
+    <TextView android:id="@+id/widget_label"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="VOCAB • Lv.1–5" android:textColor="#68756D"
+        android:textSize="11sp" android:maxLines="1" />
+    <TextView android:id="@+id/widget_word"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="contemplate" android:textColor="#172B25"
+        android:textStyle="bold" android:gravity="center"
+        android:maxLines="1" android:autoSizeTextType="uniform"
+        android:autoSizeMinTextSize="17sp" android:autoSizeMaxTextSize="26sp"
+        android:layout_marginTop="4dp" />
+    <TextView android:id="@+id/widget_meaning"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="沉思；考慮" android:textSize="13sp"
+        android:textColor="#3F5048" android:gravity="center"
+        android:maxLines="2" android:ellipsize="end"
+        android:minHeight="32dp" />
+    <TextView android:id="@+id/widget_reveal"
+        android:layout_width="match_parent" android:layout_height="36dp"
+        android:text="顯示意思" android:textSize="13sp"
+        android:textStyle="bold" android:gravity="center"
+        android:textColor="#2C5D53" />
+    <LinearLayout android:id="@+id/widget_actions"
+        android:layout_width="match_parent" android:layout_height="40dp"
+        android:orientation="horizontal" android:visibility="gone">
+        <TextView android:id="@+id/widget_again"
+            android:layout_width="0dp" android:layout_height="match_parent"
+            android:layout_weight="1" android:gravity="center" android:text="忘了"
+            android:textSize="13sp" android:textColor="#A64545" />
+        <TextView android:id="@+id/widget_hard"
+            android:layout_width="0dp" android:layout_height="match_parent"
+            android:layout_weight="1" android:gravity="center" android:text="模糊"
+            android:textSize="13sp" android:textColor="#9B7427" />
+        <TextView android:id="@+id/widget_good"
+            android:layout_width="0dp" android:layout_height="match_parent"
+            android:layout_weight="1" android:gravity="center" android:text="會"
+            android:textSize="13sp" android:textColor="#2C5D53" />
+        <TextView android:id="@+id/widget_easy"
+            android:layout_width="0dp" android:layout_height="match_parent"
+            android:layout_weight="1" android:gravity="center" android:text="秒答"
+            android:textSize="13sp" android:textColor="#2C5D53" />
+    </LinearLayout>
+</LinearLayout>

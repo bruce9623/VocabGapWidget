@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:fillViewport="true" android:fitsSystemWindows="true">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical" android:padding="22dp">
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="單字抓洞" android:textSize="29sp" android:textStyle="bold"
+            android:textColor="#172B25" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="先快速辨識漏洞，再讓桌面 Widget 幫你複習"
+            android:textColor="#627269" android:textSize="13sp" android:layout_marginTop="4dp" />
+        <TextView android:id="@+id/stats" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:text="統計" android:textSize="14sp"
+            android:textColor="#334E42" android:layout_marginTop="18dp" />
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal" android:layout_marginTop="16dp">
+            <Button android:id="@+id/scan_button" android:layout_width="0dp"
+                android:layout_height="wrap_content" android:layout_weight="1" android:text="快速抓洞" />
+            <Button android:id="@+id/review_button" android:layout_width="0dp"
+                android:layout_height="wrap_content" android:layout_weight="1" android:text="到期複習" />
+        </LinearLayout>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button android:id="@+id/output_button" android:layout_width="0dp"
+                android:layout_height="wrap_content" android:layout_weight="1" android:text="中→英 Lv.1–4" />
+            <Button android:id="@+id/import_button" android:layout_width="0dp"
+                android:layout_height="wrap_content" android:layout_weight="1" android:text="匯入 CSV" />
+        </LinearLayout>
+        <Button android:id="@+id/lv6_button" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:text="Lv.6 速讀（認得主要意思即可）" />
+        <LinearLayout android:id="@+id/study_card"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical" android:padding="22dp"
+            android:layout_marginTop="12dp" android:background="@drawable/app_card">
+            <TextView android:id="@+id/mode_info" android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:text="請選擇模式"
+                android:textColor="#68756D" android:textSize="12sp" />
+            <TextView android:id="@+id/question" android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:text="Vocabulary"
+                android:gravity="center" android:minHeight="100dp" android:textSize="29sp"
+                android:textColor="#172B25" android:textStyle="bold" />
+            <TextView android:id="@+id/answer" android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:text=""
+                android:gravity="center" android:minHeight="55dp"
+                android:textColor="#3F5048" android:textSize="17sp" />
+            <Button android:id="@+id/reveal_button" android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:text="顯示答案" />
+            <LinearLayout android:id="@+id/rating_row" android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:visibility="gone" android:orientation="horizontal">
+                <Button android:id="@+id/again_button" android:layout_width="0dp"
+                    android:layout_height="wrap_content" android:layout_weight="1" android:text="不會" />
+                <Button android:id="@+id/hard_button" android:layout_width="0dp"
+                    android:layout_height="wrap_content" android:layout_weight="1" android:text="模糊" />
+                <Button android:id="@+id/good_button" android:layout_width="0dp"
+                    android:layout_height="wrap_content" android:layout_weight="1" android:text="會" />
+            </LinearLayout>
+            <Button android:id="@+id/easy_button" android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:visibility="gone" android:text="非常熟悉（秒答）" />
+        </LinearLayout>
+        <TextView android:id="@+id/footer" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="預設只含示範單字。請先匯入自己的合法單字表 CSV。\n首頁長按空白處 → 小工具 → 單字抓洞。"
+            android:textColor="#67766D" android:lineSpacingExtra="4dp"
+            android:layout_marginTop="20dp" android:textSize="12sp" />
+    </LinearLayout>
+</ScrollView>
