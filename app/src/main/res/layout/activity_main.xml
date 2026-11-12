@@ -29,6 +29,7 @@
         </LinearLayout>
         <Button android:id="@+id/lv6_button" android:layout_width="match_parent"
             android:layout_height="wrap_content" android:text="Lv.6 速讀（認得主要意思即可）" />
+        <Button android:id="@+id/screen" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Lv.1–4 批次篩選、抽查與語塊" />
         <LinearLayout android:id="@+id/study_card"
             android:layout_width="match_parent" android:layout_height="wrap_content"
             android:orientation="vertical" android:padding="22dp"

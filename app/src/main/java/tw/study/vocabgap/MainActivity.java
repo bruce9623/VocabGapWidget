@@ -43,6 +43,7 @@ public final class MainActivity extends Activity {
         findViewById(R.id.hard_button).setOnClickListener(v->rate(2));
         findViewById(R.id.good_button).setOnClickListener(v->rate(3));
         easy.setOnClickListener(v->rate(4));
+        findViewById(R.id.screen).setOnClickListener(v -> new Screening(this, db, () -> { stats.setText(db.stats()); WordWidget.resetAfterImport(this); }).menu());
         stats.setText(db.stats());
         if (getIntent() != null && "widget".equals(getIntent().getStringExtra("from"))) {
             start("review");
