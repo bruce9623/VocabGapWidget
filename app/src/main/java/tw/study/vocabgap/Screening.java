@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.content.SharedPreferences;
 import java.util.ArrayList;
 
 final class Screening {
@@ -12,11 +13,14 @@ final class Screening {
     private final Runnable refresh;
     private int maxLevel = 3;
     private String direction = WordDatabase.EN;
+    private long afterId;
+    private SharedPreferences progress;
 
     Screening(Activity activity, WordDatabase db, Runnable refresh) {
         this.activity = activity;
         this.db = db;
         this.refresh = refresh;
+        progress = activity.getSharedPreferences("screening_progress", Activity.MODE_PRIVATE);
     }
 
     void menu() {
@@ -27,17 +31,22 @@ final class Screening {
                 new AlertDialog.Builder(activity).setTitle("練習方式")
                     .setItems(new String[]{"英→中批次篩選", "中→英批次篩選", "抽查英→中已會字", "抽查中→英已會字"}, (d, n) -> {
                         direction = n % 2 == 0 ? WordDatabase.EN : WordDatabase.ZH;
-                        if (n < 2) batch(); else audit();
+                        if (n < 2) {
+                            afterId = progress.getLong(cursorKey(), 0);
+                            batch();
+                        } else audit();
                     }).show();
             }).show();
     }
 
+    private String cursorKey() { return "after_" + maxLevel + "_" + direction; }
+
     private ArrayList<WordDatabase.Word> words(boolean known) {
         String sql = "SELECT w.id,w.word,w.level,w.meanings FROM words w LEFT JOIN cards c " +
             "ON c.word_id=w.id AND c.direction=? WHERE w.level<=? AND " +
-            (known ? "c.last_grade>=3 ORDER BY RANDOM() LIMIT 1" : "c.word_id IS NULL ORDER BY w.level,w.id LIMIT 12");
+            (known ? "c.last_grade>=3 ORDER BY RANDOM() LIMIT 1" : "w.id>? ORDER BY w.id LIMIT 12");
         ArrayList<WordDatabase.Word> result = new ArrayList<>();
-        try (Cursor c = db.getReadableDatabase().rawQuery(sql, new String[]{direction, String.valueOf(maxLevel)})) {
+        try (Cursor c = db.getReadableDatabase().rawQuery(sql, known ? new String[]{direction, String.valueOf(maxLevel)} : new String[]{direction, String.valueOf(maxLevel), String.valueOf(afterId)})) {
             while (c.moveToNext()) result.add(new WordDatabase.Word(c.getLong(0), c.getString(1), c.getInt(2), c.getString(3)));
         }
         return result;
@@ -47,7 +56,12 @@ final class Screening {
 
     private void batch() {
         ArrayList<WordDatabase.Word> list = words(false);
-        if (list.isEmpty()) { notice("這個方向已全部掃描"); return; }
+        if (list.isEmpty()) {
+            afterId = 0;
+            progress.edit().putLong(cursorKey(), 0).apply();
+            notice("這個範圍已掃描完。再次選擇批次篩選即可重新開始");
+            return;
+        }
         String[] labels = new String[list.size()];
         boolean[] marked = new boolean[list.size()];
         for (int i=0;i<labels.length;i++) labels[i]=prompt(list.get(i));
@@ -60,6 +74,8 @@ final class Screening {
                     for (int i=0;i<labels.length;i++) db.rate(list.get(i),direction,marked[i]?1:3);
                     sql.setTransactionSuccessful();
                 } finally { sql.endTransaction(); }
+                afterId = list.get(list.size()-1).id;
+                progress.edit().putLong(cursorKey(), afterId).apply();
                 refresh.run();
                 batch();
             }).show();
