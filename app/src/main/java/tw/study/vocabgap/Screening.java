@@ -24,10 +24,10 @@ final class Screening {
     }
 
     void menu() {
-        new AlertDialog.Builder(activity).setTitle("選擇範圍")
-            .setItems(new String[]{"Lv.1–3", "Lv.1–4", "常用語塊填空"}, (dialog, i) -> {
-                if (i == 2) { chunk(); return; }
-                maxLevel = i == 0 ? 3 : 4;
+        new AlertDialog.Builder(activity).setTitle("選擇累加範圍")
+            .setItems(new String[]{"Lv.1", "Lv.1–2", "Lv.1–3", "Lv.1–4", "Lv.1–5", "常用語塊填空"}, (dialog, i) -> {
+                if (i == 5) { chunk(); return; }
+                maxLevel = i + 1;
                 new AlertDialog.Builder(activity).setTitle("練習方式")
                     .setItems(new String[]{"英→中批次篩選", "中→英批次篩選", "抽查英→中已會字", "抽查中→英已會字"}, (d, n) -> {
                         direction = n % 2 == 0 ? WordDatabase.EN : WordDatabase.ZH;
